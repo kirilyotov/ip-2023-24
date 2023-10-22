@@ -17,8 +17,7 @@ int main()
     std::cout << "Point 4 (x4 y4): ";
     std::cin >> x4 >> y4;
 
-    double area = 0.5 * abs(x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2) + x1 * (y3 - y4) +
-             x3 * (y4 - y1) + x4 * (y1 - y3));
+    double area = 0.5 * std::abs(x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2) + x1 * (y3 - y4) + x3 * (y4 - y1) + x4 * (y1 - y3));
 
     std::cout << "Area =  " << area << std::endl;
 

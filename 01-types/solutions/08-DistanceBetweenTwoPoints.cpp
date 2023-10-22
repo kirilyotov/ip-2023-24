@@ -3,12 +3,11 @@
 
 int main()
 {
-    double x1, y1,
-        x2 = 0, y2 = 0;
+    float x, y;
 
-    std::cin >> x1 >> y2;
+    std::cin >> x >> y;
 
-    double distance = sqrt(pow((x2 - x1), 2) + pow((y2 - y1), 2));
+    float distance = std::sqrt( (x*x) + (y*y) );
 
     std::cout << distance << std::endl;
 
