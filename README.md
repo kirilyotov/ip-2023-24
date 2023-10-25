@@ -22,3 +22,5 @@
 ## Материал по седмици
 [00-Въведение](https://github.com/kirilyotov/ip-2023-24/tree/master/00-introduction)<br>
 [01-Типове](https://github.com/kirilyotov/ip-2023-24/tree/master/01-types)<br>
+[02-Побитови Операции](https://github.com/kirilyotov/ip-2023-24/tree/master/02-bitwise)<br>
+[03-Условни Оператори](https://github.com/kirilyotov/ip-2023-24/tree/master/03-conditionals)
