@@ -10,10 +10,15 @@ int main() {
 		max = M;
 	}
 	int sum = 0;
-	for (min; min < max; min++)
+	for (; min < max; min++)
 	{
 		sum += min;
 	}
 	std::cout << sum;
+
+    // NOTE: Always prefer mathematics over bruteforce loops!
+    // A math solution will look like this:
+    //int sum = (max - min + 1)*(max + min)/2;
+        
 	return 0;
 }
