@@ -41,10 +41,60 @@
                 <br><br><br><br><br>
                 <h3 >Clean code практики</h3>
             </section>
+            <section>
+                <h4>Да се слагат разстояния и празни редове не вреди!</h4>
+                <p style="font-size:large;">
+                    Всяко IDE си има функция за форматиране на кода<br> (Позволено е да се използва 😃)
+                </p>
+                <br>
+                <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
+                    int main()
+                    { 
+                        // GOOD EXAMPLE
+                        for (int i = 0; i < 10; i++)
+                        {
+                            std::cout << i << std::endl;
+                        }
+                    
+                        // BAD EXAMPLE
+                        for(int i=0;i< 10;i++)std::cout<< i<< std::endl;
+                    }
+                </code></pre>            
+            </section> 
+            <section>
+                <section>
+                <h4>
+                   Важно е да се спазва модуларността на кода
+                </h4>
+                <br>
+                <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
+                   int main(){
+                    int temperature = getTemperature();    
+                    if(temperature>30)std::cout<<"It's hot outside."<< std::endl;
+                    else std::cout<< "It's not hot outside."<< std::endl;
+                   }
+                </code></pre>
+                </section>   
+                <section>
+                    <h4>
+                       Важно е да се спазва модуларността на кода
+                    </h4>
+                    <br>
+                    <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
+                    int main(){
+                        
+                        int temperature = getTemperature();
 
-          
-                
-            <!-- Example of nested vertical slides -->
+                        if (temperature > 30){
+                            cout << "It's hot outside." << endl;
+                        }
+                        else{
+                            cout << "It's not hot outside." << endl;
+                        }
+                    }                      
+                    </code></pre>            
+                </section>           
+            </section>               
             <section>
                 <section>
                     <h3>
@@ -95,62 +145,6 @@
                     
                 </section>
             </section>
-
-            
-                <section>
-                    <h4>Да се слагат разстояния и празни редове не вреди!</h4>
-                    <p style="font-size:large;">
-                        Всяко IDE си има функция за форматиране на кода<br> (Позволено е да се използва 😃)
-                    </p>
-                    <br>
-                    <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
-                        int main()
-                        { 
-                            // GOOD EXAMPLE
-                            for (int i = 0; i < 10; i++)
-                            {
-                                std::cout << i << std::endl;
-                            }
-                        
-                            // BAD EXAMPLE
-                            for(int i=0;i< 10;i++)std::cout<< i<< std::endl;
-                        }
-                    </code></pre>            
-                </section>
-                <section>
-                    <section>
-                    <h4>
-                       Важно е да се спазва модуларността на кода
-                    </h4>
-                    <br>
-                    <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
-                       int main(){
-                        int temperature = getTemperature();    
-                        if(temperature>30)std::cout<<"It's hot outside."<< std::endl;
-                        else std::cout<< "It's not hot outside."<< std::endl;
-                       }
-                    </code></pre>
-                    </section>   
-                    <section>
-                        <h4>
-                           Важно е да се спазва модуларността на кода
-                        </h4>
-                        <br>
-                        <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
-                        int main(){
-                            
-                            int temperature = getTemperature();
-
-                            if (temperature > 30){
-                                cout << "It's hot outside." << endl;
-                            }
-                            else{
-                                cout << "It's not hot outside." << endl;
-                            }
-                        }                      
-                        </code></pre>            
-                    </section>           
-                </section>
                 <section>
                     <section>
                     <h4>
@@ -197,18 +191,6 @@
             <section>
                 <section>
                 <p>Кога и защо се пишат функции?</p>
-                <p>От какви типове могат да бъдат?</p>
-                </section>
-
-                <section>
-                    <p>Функциите се пишат, когато имаме нужда от повтарящ се код.</p>
-                    <p>Те могат да бъдат от следните типове:</p>
-                    <ul>
-                        <li>Функции, които не връщат резултат</li>
-                        <li>Функции, които връщат резултат</li>
-                        <li>Функции, които не връщат резултат, но имат параметри</li>
-                        <li>Функции, които връщат резултат и имат параметри</li>
-                    </ul>
                 </section>
                 <section>
                     <p>Колко дълга трябва да е една функция?</p>
@@ -261,7 +243,63 @@
                 </section>
             </section>
 
-           
+            <section>
+                <section>
+                <p>Какви коментари има?</p>
+                </section>
+                <section>
+                    <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
+                        int main(){
+                            // line comment
+
+                            /*
+                            * multiline comment
+                            */
+                        }                        
+                    </code></pre>     
+
+                </section>
+
+                <section>
+                    <p>Как да не ползваме коментари </p>
+                    <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
+                        // function
+                        unsigned long long f(unsigned int n)
+                        {
+                            unsigned long long r = 1; // long init
+                            for (int i = 2; i <= n; ++i) // loop
+                                r *= i;
+                            return r; 
+                        }
+
+                        //int multiply(int a, int b)
+                        //{
+                        //    return a * b;
+                        //}
+                        
+                    </code></pre>     
+
+                </section>
+                <section>
+                    <p>Колко дълга трябва да е една функция?</p>
+                    <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
+                        /**
+                        * Calculates the factorial of a given number.
+                        *
+                        * @param num The number to calculate the factorial of.
+                        * @return The factorial of the given number.
+                        */
+                        unsigned long long factorial(unsigned int num)
+                        {
+                            unsigned long long result = 1;
+                            for (int i = 2; i <= num; ++i)
+                                result *= i;
+                            return result;
+                        }                       
+                    </code></pre>     
+
+                </section>
+            </section>
 
         </div>
 
