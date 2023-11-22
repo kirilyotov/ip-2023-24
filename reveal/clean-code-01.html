@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Clean code</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css" id="theme">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="reveal">
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides" data-auto-animate="">
+            <section data-auto-animate data-background-image="https://www.simplilearn.com/ice9/free_resources_article_thumb/Top_12_Uses_of_C.jpg">
+                <br><br><br><br><br>
+                <h3 >Clean code практики</h3>
+            </section>
+
+          
+                
+            <!-- Example of nested vertical slides -->
+            <section>
+                <section>
+                    <h3>
+                        Имената на променливите имат значение
+                    </h3>
+                    
+                    <p class="navigate-down">
+                        😏
+                    </p>
+                </section>
+                <section>
+                    <p class="fs-5 m-5 opacity-25">Нещо май не разбрах</p>
+                    <br>
+                    <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
+                        #include < iostream >
+
+                        int main()
+                            {
+                                
+                                int a = 25;
+                                int b = 7;
+                                std::string c = "John";
+                            }
+                    </code></pre>            
+                </section>
+                <section>
+                    <p class="fs-5 m-5 opacity-25">Това вече е друго нещо</p>
+                    <pre data-id="code"><code data-line-numbers class="hljs" data-trim>
+                        #include < iostream >
+
+                        int main()
+                            {
+                                
+                                int age = 25;
+                                int height = 7;
+                                std::string name = "John";
+                            }
+                    </code></pre>
+                </section>
+                <section>
+                    <p class="fs-5 m-5 opacity-25">Какво трябва да е името</p>
+                    <ul>
+                        <li>Да е описателно</li>
+                        <li>Да е кратко</li>
+                        <li>Да е лесно за разбиране</li>
+                        <li>Да е на английски</li>
+                    </ul>
+                    
+                </section>
+            </section>
+
+            
+                <section>
+                    <h4>Да се слагат разстояния и празни редове не вреди!</h4>
+                    <p style="font-size:large;">
+                        Всяко IDE си има функция за форматиране на кода<br> (Позволено е да се използва 😃)
+                    </p>
+                    <br>
+                    <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
+                        int main()
+                        { 
+                            // GOOD EXAMPLE
+                            for (int i = 0; i < 10; i++)
+                            {
+                                std::cout << i << std::endl;
+                            }
+                        
+                            // BAD EXAMPLE
+                            for(int i=0;i< 10;i++)std::cout<< i<< std::endl;
+                        }
+                    </code></pre>            
+                </section>
+                <section>
+                    <section>
+                    <h4>
+                       Важно е да се спазва модуларността на кода
+                    </h4>
+                    <br>
+                    <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
+                       int main(){
+                        int temperature = getTemperature();    
+                        if(temperature>30)std::cout<<"It's hot outside."<< std::endl;
+                        else std::cout<< "It's not hot outside."<< std::endl;
+                       }
+                    </code></pre>
+                    </section>   
+                    <section>
+                        <h4>
+                           Важно е да се спазва модуларността на кода
+                        </h4>
+                        <br>
+                        <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
+                        int main(){
+                            
+                            int temperature = getTemperature();
+
+                            if (temperature > 30){
+                                cout << "It's hot outside." << endl;
+                            }
+                            else{
+                                cout << "It's not hot outside." << endl;
+                            }
+                        }                      
+                        </code></pre>            
+                    </section>           
+                </section>
+                <section>
+                    <section>
+                    <h4>
+                       Какво прави тази функция?
+                    </h4>
+                    <br>
+                    <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
+                        unsigned long long f(unsigned int n)
+                        {
+                            unsigned long long r = 1;
+                            for (int i = 2; i <= n; ++i)
+                                r *= i;
+                            return r;
+                        }
+                    </code></pre>
+                    </section>   
+                    <section>
+                        <h4>
+                           Кое се чете по-лесно?
+                        </h4>
+                        <br>
+                        <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
+                            unsigned long long factorial(unsigned int num)
+                            {
+                                unsigned long long result = 1;
+                                for (int i = 2; i <= num; ++i)
+                                    result *= i;
+                                return result;
+                            }              
+                        </code></pre>       
+                    </section>
+                    <section>
+                         <p>Функциите трябва да имат смислени имена.<br>Ето няколко примера:</p>
+                         <ul style="font-size:larger;">
+                            <li>getShortestPath</li>
+                            <li>readArrayFromConsole</li>
+                            <li>printArray</li>
+                            <li>isPositiveNumber</li>
+                        </ul>   
+                    </section>           
+                </section>
+               
+
+            <section>
+                <section>
+                <p>Кога и защо се пишат функции?</p>
+                <p>От какви типове могат да бъдат?</p>
+                </section>
+
+                <section>
+                    <p>Функциите се пишат, когато имаме нужда от повтарящ се код.</p>
+                    <p>Те могат да бъдат от следните типове:</p>
+                    <ul>
+                        <li>Функции, които не връщат резултат</li>
+                        <li>Функции, които връщат резултат</li>
+                        <li>Функции, които не връщат резултат, но имат параметри</li>
+                        <li>Функции, които връщат резултат и имат параметри</li>
+                    </ul>
+                </section>
+                <section>
+                    <p>Колко дълга трябва да е една функция?</p>
+                    <pre data-id="code" ><code data-line-numbers class="hljs" data-trim>
+                        #include < iostream >
+
+                            int main()
+                            {
+                                int n;
+                                int arr[100];
+                                int rot;
+                                
+                                std::cin >> n;
+                                for(int i = 0; i < n; i++)
+                                {
+                                    std::cin >> arr[i];
+                                }
+                                std::cin >> rot;
+                            
+                                if(rot > 0)
+                                {
+                                    for(int r = 0; r < rot; r++)
+                                    {
+                                        for(int i = n-1; i > 0; i--)
+                                        {
+                                            std::swap(arr[i-1], arr[i]);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    rot = abs(rot);
+                                    for(int r = 0; r < rot; r++)
+                                    {
+                                        for(int i = 1; i < n; i++)
+                                        {
+                                            std::swap(arr[i-1], arr[i]);
+                                        }
+                                    }
+                                }
+                                
+                                for(int i = 0; i < n; i++)
+                                {
+                                    std::cout << arr[i] << " ";
+                                }
+                                std::cout << std::endl;
+                            }
+                    </code></pre>     
+
+                </section>
+            </section>
+
+           
+
+        </div>
+
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/zoom/zoom.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/search/search.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            center: true,
+            hash: true,
+
+
+            plugins: [RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight]
+        });
+
+    </script>
+
+</body>
+
+</html>
