@@ -4,20 +4,13 @@ int main()
 {
     int N;
     std::cin >> N;
-    int a = 0, b = 1, c;
+    int curr = 0, next = 1;
     for (int i = 0; i < N; ++i)
     {
-        if (i <= 1)
-        {
-            c = i;
-        }
-        else
-        {
-            c = a + b;
-            a = b;
-            b = c;
-        }
-        std::cout << c << " ";
+        std::cout << curr << " ";
+        int temp = next;
+        next += curr;
+        curr = temp;
     }
     std::cout << std::endl;
     return 0;
