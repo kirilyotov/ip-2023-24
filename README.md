@@ -34,3 +34,5 @@
 - [05-Функции](https://github.com/kirilyotov/ip-2023-24/tree/master/05-functions)<br>
 - [06-Масиви](https://github.com/kirilyotov/ip-2023-24/tree/master/06-Arrays)<br>
 - [07-Алгоритми с масиви](https://github.com/kirilyotov/ip-2023-24/tree/master/07-Algorithms)<br>
+- [08-Подготовка за първо контролно](https://github.com/kirilyotov/ip-2023-24/tree/master/08-exam_prep)<br>
+- [09-Матрици](https://github.com/kirilyotov/ip-2023-24/tree/master/09-matrices)<br>
