@@ -437,6 +437,9 @@ int main(){
 
     printArray(extractPositiveNums , lengthOfExtractArray, lengthOfExtractArray);
 
+    delete minElement;
+    delete element;
+    delete searchedElement;
     deleteArray(array);
     deleteArray(extractPositiveNums);
     deleteMatrix(matrix, MATRIX_ROWS);
