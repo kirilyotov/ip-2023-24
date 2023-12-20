@@ -4,6 +4,8 @@
 using std::cout;
 using std::endl;
 
+void deleteMatrix(int**& matrix, int rows);
+
 // Task 1
 /**
  * Finds the minimum element in an array.
@@ -12,13 +14,13 @@ using std::endl;
  * @param size The number of elements in the array.
  * @return Pointer to the minimum element, or nullptr if the array is empty or null.
  */
-int* findMinElement(int* arr, int size) {
+const int* findMinElement(const int* arr, int size) {
     if (arr == nullptr || size <= 0) return nullptr;
 
-    int* minElement = arr;
+    const int* minElement = arr;
     for (int i = 1; i < size; ++i) {
         if (arr[i] < *minElement) {
-            minElement = &arr[i];
+            minElement = arr + i;
         }
     }
     return minElement;
@@ -92,9 +94,20 @@ int** createMatrix(int rows, int cols) {
     if (rows <= 0 || cols <= 0) return nullptr;
 
     int** matrix = new (std::nothrow) int*[rows];
+    if (matrix == nullptr)
+        return nullptr;
+
     for (int i = 0; i < rows; ++i) {
-        matrix[i] = new int[cols];
+        matrix[i] = new (std::nothrow) int[cols];
+
+        // if the allocations fails we need
+        // to delete all memory used so far
+        if (matrix[i] == nullptr) {
+            deleteMatrix(matrix, i);
+            break;
+        }
     }
+
     return matrix;
 }
 
