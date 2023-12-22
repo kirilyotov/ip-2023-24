@@ -7,21 +7,35 @@ int main()
     std::cout << "Enter number: ";
     std::cin >> n;
 
-    for (int i = 0; i < n; ++i)
+    if ( n < 1 )
+        return 1;
+    else if( n == 1 )
+       std::cout << '#';
+    else
     {
-        for (int j = 0; j < n; ++j)
+        for (int i = 0; i < n; ++i)
         {
-            if (i == 0 || i == n - 1 || j == 0 || j == n - 1)
-            {
-                std::cout << "#";
-            }
-            else
-            {
-                std::cout << " ";
-            }
+            std::cout << '#';
         }
-        std::cout << std::endl;
-    }
+        std::cout << '\n';
 
+        for (int i = 1; i < n-1; ++i)
+        {
+            std::cout << '#';
+
+            for (int j = 1; j < n-1; ++j)
+            {
+                std::cout << ' ';
+            }
+
+            std::cout << "#\n";
+        }
+
+        for (int i = 0; i < n; ++i)
+        {
+            std::cout << '#';
+        }
+    }
+    
     return 0;
 }
