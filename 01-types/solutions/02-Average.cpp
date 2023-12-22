@@ -8,7 +8,7 @@ int main()
 
     std::cin >> a >> b >> c;
 
-    average = (a + b + c) / 2.0;
+    average = (a + b + c) / 3.0;
 
     std::cout << "Average = " << average << std::endl;
 
