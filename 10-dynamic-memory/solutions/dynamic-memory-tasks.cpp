@@ -391,7 +391,7 @@ int main(){
     printArray(array, arraySize, arrayLength);
     cout << endl;
 
-    int* minElement = findMinElement(array, arraySize);
+    const int* minElement = findMinElement(array, arraySize);
     cout << "minElement " << minElement << " " << *minElement << endl;
     cout << endl;
 
