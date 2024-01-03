@@ -20,9 +20,11 @@ void reverse(char *str)
 {
     int len = strlen(str);
 
+    // Variant 1 - array-like
     // for (int i = 0; i < len/2; i++)
     //     std::swap(str[i], str[len - 1 - i]);
 
+    // Variant 2 - pure pointers
     char *mid = str + len / 2;
     char *end = str + len - 1;
     while (str != mid)
@@ -34,32 +36,38 @@ void reverse(char *str)
 }
 
 // Task 3
-const char *concatenate(const char *s1, const char *s2)
+char* concatenate(const char *s1, const char *s2)
 {
-    char *result = new char[strlen(s1) + strlen(s2) + 1];
+    // Allocate enough memory for both strings + the term. 0 ('\0')
+    char * result = new (std::nothrow) char[strlen(s1) + strlen(s2) + 1];
+    if (!result)
+        return nullptr;
+
     strcpy(result, s1);
     strcat(result, s2);
     return result;
 }
 
 // Task 4
-const char *concatenate(const char *s1, const char *s2)
+bool isPalindrome(const char *str)
 {
-    char *result = new char[strlen(s1) + strlen(s2) + 1];
-    strcpy(result, s1);
-    strcat(result, s2);
-    return result;
+    int len = strlen(str);
+    for (int i = 0; i < len/2; i++)
+        if (str[i] != str[len - 1 - i])
+            return false;
+
+    return true;
 }
 
 // Task 5
 int atoi(const char *s)
 {
     int result = 0;
-    for (int i = 0; s[i] != '\0'; i++)
+    while (*s != '\0')
     {
-        if (s[i] >= '0' && s[i] <= '9')
+        if (*s >= '0' && *s <= '9')
         {
-            result = result * 10 + (s[i] - '0');
+            result = result * 10 + (*s - '0');
         }
         else
         {
@@ -70,11 +78,11 @@ int atoi(const char *s)
 }
 
 // Task 6
-void swap(char **str1, char **str2)
+void swap(char *& str1, char *& str2)
 {
-    char *temp = *str1;
-    *str1 = *str2;
-    *str2 = temp;
+    char *temp = str1;
+    str1 = str2;
+    str2 = temp;
 }
 
 void sortWords(char **arr, int n)
@@ -85,7 +93,7 @@ void sortWords(char **arr, int n)
         {
             if (strcmp(arr[j], arr[j + 1]) > 0)
             {
-                swap(&arr[j], &arr[j + 1]);
+                swap(arr[j], arr[j + 1]);
             }
         }
     }
@@ -123,7 +131,9 @@ const char *replaceWord(const char *str, const char *oldWord, const char *newWor
     }
 
     // Allocating space for the new string
-    char *result = new char[strlen(str) + count * (newWordLen - oldWordLen) + 1];
+    char *result = new (std::nothrow) char[strlen(str) + count * (newWordLen - oldWordLen) + 1];
+    if (!result)
+        return nullptr;
 
     int i = 0;
     while (*str)
@@ -131,7 +141,7 @@ const char *replaceWord(const char *str, const char *oldWord, const char *newWor
         // Compare the substring with the result
         if (strstr(str, oldWord) == str)
         {
-            strcpy(&result[i], newWord);
+            strcpy(result + i, newWord);
             i += newWordLen;
             str += oldWordLen;
         }
@@ -146,9 +156,12 @@ const char *replaceWord(const char *str, const char *oldWord, const char *newWor
 }
 
 // Task 9
-const char **initLogSystem(unsigned capacity)
+char **initLogSystem(unsigned capacity)
 {
-    char **logStream = new char *[capacity];
+    char **logStream = new (std::nothrow) char *[capacity];
+    if (!logStream)
+        return nullptr;
+
     for (int i = 0; i < capacity; i++)
     {
         logStream[i] = nullptr;
@@ -159,7 +172,9 @@ const char **initLogSystem(unsigned capacity)
 void resizeLogSystem(char **logger, unsigned &size, unsigned &capacity)
 {
     int newCapacity = capacity * 2;
-    char **newLogger = new char *[newCapacity];
+    char **newLogger = new (std::nothrow) char *[newCapacity];
+    if (!newLogger)
+        return;
 
     for (int i = 0; i < capacity; i++)
     {
@@ -184,13 +199,16 @@ void log(char **logger, unsigned &size, unsigned &capacity, char *message)
     }
     unsigned messageSize = strlen(message);
 
-    logger[size] = new char[messageSize];
+    logger[size] = new (std::nothrow) char[messageSize];
+    if (!logger[size])
+        return;
+
     strncpy(logger[size], message, messageSize - 1);
     logger[size][messageSize - 1] = '\0';
     size++;
 }
 
-void displayAndClearLog(char **logger, unsigned &size, unsigned &capacity)
+void displayAndClearLog(const char **logger, unsigned size)
 {
     for (int i = 0; i < size; i++)
     {
@@ -276,11 +294,6 @@ char toLowerCase(char c)
         return c - 'A' + 'a';
     }
     return c;
-}
-
-bool isLetter(char c)
-{
-    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
 }
 
 void capitalizeAfterPeriod(char *text)
@@ -441,7 +454,6 @@ void TextEditor()
     std::cout << "Spaces: " << spaceCount << std::endl;
     std::cout << "Letters: " << letterCount << std::endl;
 
-    delete[] text;
     for (int i = 0; i < numOfReplacements; ++i)
     {
         delete[] pairs[i];
