@@ -190,7 +190,7 @@ bool isValid(char maze[100][100], int x, int y, int rows, int cols)
     return (x >= 0 && x < rows && y >= 0 && y < cols && maze[x][y] == ' ');
 }
 
-// Recursive function to find a path in the maze - This algorithm is called backtracking
+// Recursive function to find a path in the maze - This algorithm technique is called backtracking
 bool findPath(char maze[100][100], int x, int y, int rows, int cols)
 {
     // If (x, y) is the destination, return true
