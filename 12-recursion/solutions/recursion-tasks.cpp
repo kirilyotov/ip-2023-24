@@ -66,20 +66,27 @@ int maxNumberInArray(int *arr, int size)
     return std::max(arr[0], maxNumberInArray(arr + 1, size - 1));
 }
 
-void reverseString(char *str, int start, int end)
+void reverseStringInner(char *str, int start, int end);
+
+// Task 7
+void reverseString(char *str)
+{
+    int len = recursiveStrlen(str);
+    reverseStringInner(str, 0, len-1);
+}
+
+void reverseStringInner(char *str, int start, int end)
 {
     if (start >= end)
     {
         return;
     }
 
-    // Swap characters
-    char temp = str[start];
-    str[start] = str[end];
-    str[end] = temp;
+    // Swap first and last characters
+    std::swap(str[start], str[end]);
 
     // Recursive call
-    reverseString(str, start + 1, end - 1);
+    reverseStringInner(str, start + 1, end - 1);
 }
 
 // Task 8
@@ -116,6 +123,8 @@ int recursiveAtoi(const char *str)
     return (*str - '0') + 10 * recursiveAtoi(str + 1);
 }
 
+int minIndexInArray(const int *arr, int size);
+
 // Task 10
 void recursiveSelectionSort(int *arr, int size)
 {
@@ -124,17 +133,22 @@ void recursiveSelectionSort(int *arr, int size)
         return;
     }
 
-    int maxIndex = 0;
+    int minIndex = minIndexInArray(arr, size);
+    std::swap(*arr, arr[minIndex]);
+    recursiveSelectionSort(arr + 1, size - 1);
+}
+
+int minIndexInArray(const int *arr, int size)
+{
+    int minIndex = 0;
+
     for (int i = 1; i < size; i++)
     {
-        if (arr[i] > arr[maxIndex])
-        {
-            maxIndex = i;
-        }
+        if (arr[minIndex] > arr[i])
+            minIndex = i;
     }
 
-    std::swap(arr[maxIndex], arr[size - 1]);
-    recursiveSelectionSort(arr, size - 1);
+    return minIndex;
 }
 
 // Task 11
@@ -227,16 +241,19 @@ int main()
 
     std::cout << "Max number in array " << maxNumberInArray(integerArray, ARRAY_SIZE) << "\n";
 
-    reverseString(str, 0, recursiveStrlen(str) - 1);
+    reverseString(str);
 
     std::cout << "Reversed string: " << str << "\n";
 
     std::cout << "\n";
-    char *destination = new char[recursiveStrlen(str) + 1];
-    recursiveStrcpy(destination, str);
+    char *destination = new (std::nothrow) char[recursiveStrlen(str) + 1];
+    if (destination)
+    {
+        recursiveStrcpy(destination, str);
 
-    std::cout << "copy of str:" << destination << "\n";
-    delete[] destination;
+        std::cout << "copy of str:" << destination << "\n";
+        delete[] destination;
+    }
 
     std::cout << "atoi of 12345: " << recursiveAtoi("12345") << "\n";
 
