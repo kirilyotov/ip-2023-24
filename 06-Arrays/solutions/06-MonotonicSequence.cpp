@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 
 void readArray(int arr[], const int size)
 {
@@ -10,18 +9,21 @@ void readArray(int arr[], const int size)
     std::cout << std::endl;
 }
 
-short isMonotonic(int sequence[], const int &size)
+short isMonotonic(const int sequence[], const int &size)
 {
     bool increasing = false;
     bool decreasing = false;
 
     for (int i = 1; i < size; i++)
     {
+        if(increasing && decreasing)
+            break;
+
         if (sequence[i] > sequence[i - 1])
         {
             increasing = true;
         }
-        if (sequence[i] < sequence[i - 1])
+        else if (sequence[i] < sequence[i - 1])
         {
             decreasing = true;
         }
@@ -44,7 +46,7 @@ short isMonotonic(int sequence[], const int &size)
 int main()
 {
     const int MAX_SIZE = 128;
-    int sequence[MAX_SIZE] = {0};
+    int sequence[MAX_SIZE] = {0,};
 
     int size;
     std::cout << "Enter size of sequence: ";
