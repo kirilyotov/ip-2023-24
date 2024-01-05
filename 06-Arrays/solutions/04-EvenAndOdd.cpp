@@ -6,22 +6,6 @@ void readArray(int arr[], const int size)
     {
         std::cin >> arr[i];
     }
-    std::cout << std::endl;
-}
-
-double averageOfEvenNumbers(const int arr[], const int size)
-{
-    int sum = 0;
-    int count = 0;
-    for (int i = 0; i < size; i++)
-    {
-        if (arr[i] % 2 == 0)
-        {
-            sum += arr[i];
-            count++;
-        }
-    }
-    return (double)sum / count;
 }
 
 int sumOfEvenNumbers(const int arr[], const int size)
@@ -35,6 +19,19 @@ int sumOfEvenNumbers(const int arr[], const int size)
         }
     }
     return sum;
+}
+
+double averageOfEvenNumbers(const int arr[], const int size)
+{
+    int count = 0;
+    for (int i = 0; i < size; i++)
+    {
+        if (arr[i] % 2 == 0)
+        {
+            count++;
+        }
+    }
+    return (double)sumOfEvenNumbers(arr,size) / count;
 }
 
 int sumOfOddNUmbers(const int arr[], const int size)
@@ -53,18 +50,21 @@ int sumOfOddNUmbers(const int arr[], const int size)
 int main()
 {
     const int size = 128;
-    int arr[size] = {0};
+    int arr[size] = {0,};
     int N = 0;
     std::cout << "Enter the size of the array: ";
     std::cin >> N;
 
+    if(N > size)
+        return 1;
+
     std::cout << "Enter the elements of the array: ";
     readArray(arr, N);
 
-    std::cout << "The average of the even numbers is: " << averageOfEvenNumbers(arr, size) << std::endl;
+    std::cout << "The average of the even numbers is: " << averageOfEvenNumbers(arr, N) << std::endl;
 
     std::cout << "Product of even and odd number is: "
-              << sumOfEvenNumbers(arr, size) * sumOfOddNUmbers(arr, size) << std::endl;
+              << sumOfEvenNumbers(arr, N) * sumOfOddNUmbers(arr, N) << std::endl;
 
     return 0;
 }
