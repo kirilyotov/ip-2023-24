@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cmath>
 
 void readArray(int arr[], int &n, int &rot)
 {
@@ -11,33 +10,22 @@ void readArray(int arr[], int &n, int &rot)
     std::cin >> rot;
 }
 
-void rotateArray(int arr[], int n, int rot)
+void reverseArr(int arr[], int startIdx, int endIdx)
 {
-    if (rot > 0)
+    for(; startIdx < endIdx; startIdx++,endIdx--)
     {
-        for (int r = 0; r < rot; r++)
-        {
-            int last = arr[n - 1];
-            for (int i = n - 1; i > 0; i--)
-            {
-                arr[i] = arr[i - 1];
-            }
-            arr[0] = last;
-        }
+        std::swap(arr[startIdx],arr[endIdx]);
     }
-    else
-    {
-        rot = std::abs(rot);
-        for (int r = 0; r < rot; r++)
-        {
-            int first = arr[0];
-            for (int i = 0; i < n - 1; i++)
-            {
-                arr[i] = arr[i + 1];
-            }
-            arr[n - 1] = first;
-        }
-    }
+}
+
+void rotateArray(int arr[], int size, int rot)
+{
+    rot = rot < 0 ? size - (-rot % size) : rot % size;
+
+    reverseArr(arr, 0, size - rot - 1);
+    reverseArr(arr, size - rot,size - 1);
+        
+    reverseArr(arr, 0, size - 1);
 }
 
 void printArray(const int arr[], const int &n)
