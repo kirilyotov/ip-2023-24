@@ -7,11 +7,9 @@ int main()
     std::cout << "Enter number: ";
     std::cin >> n;
 
-    if ( n < 1 )
-        return 1;
-    else if( n == 1 )
+    if( n == 1 )
        std::cout << '#';
-    else
+    else if(n > 1)
     {
         for (int i = 0; i < n; ++i)
         {
