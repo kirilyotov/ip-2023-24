@@ -1,6 +1,6 @@
 #include <iostream>
 
-void findPairs(const int arr[], const int &size, int targetSum = 42)
+void findPairs(const int arr[], const int size, const int targetSum = 42)
 {
     for (int i = 0; i < size; ++i)
     {

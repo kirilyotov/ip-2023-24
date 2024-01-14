@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstdlib> 
 #include <ctime>
 using std::cout;
 using std::endl;
@@ -35,7 +34,8 @@ const int* findMinElement(const int* arr, int size) {
  * @param max The maximum value for the random numbers (inclusive).
  */
 void fillArrayWithRandomNumbers(int* const  arr, int size, int min, int max) {
-    if (arr == nullptr || size <= 0) return;
+    if (arr == nullptr || size <= 0 || 
+        max - min + 1 == 0) return;
 
     // srand(time(0));
 
@@ -51,7 +51,7 @@ void fillArrayWithRandomNumbers(int* const  arr, int size, int min, int max) {
 }
 
 void printArray(const int* const arr, int size, int length){
-    std::cout << "array size: " << size  << " array length: " << length<< endl;
+    cout << "array size: " << size  << " array length: " << length<< endl;
 
     for(int i = 0; i < size; ++i){
         cout << arr[i] << " ";
@@ -163,9 +163,13 @@ void deleteMatrix(int**& matrix, int rows) {
  * @param size The number of elements to copy.
  */
 void copyArray(int* from, int* to, int size){
-    for (int i = 0; i < size; ++i) {
-        to[i] = from[i];
-    }
+    if (from < to)
+        for (int i = size - 1; i >= 0; --i) 
+            to[i] = from[i];
+
+    else if (to < from)
+        for (int i = 0; i < size; ++i) 
+            to[i] = from[i];
 }
 
 /**
@@ -176,26 +180,34 @@ void copyArray(int* from, int* to, int size){
  * @param intOutSize Reference to the length of the array.
  * @param element The element to append.
  */
-void appendElement(int*& arr, int& intOutSize, int& inOutLength,  int element) {
-    if(intOutSize + 1 > inOutLength)
+bool appendElement(int*& arr, int& inOutSize, int& inOutLength, int element) {
+    if(inOutSize + 1 > inOutLength)
     {
-        int* temp = createArray(intOutSize + 1);
-        copyArray(arr, temp, intOutSize);
+        int newLength = inOutSize * 2;
+
+        int* temp = createArray(newLength);
+        if(temp == nullptr)
+            return false;
+
+        copyArray(arr, temp, inOutSize);
         deleteArray(arr);
         
         arr = temp;
-        ++inOutLength;
+        inOutLength = newLength;
     }
     
-    arr[intOutSize] = element;
+    arr[inOutSize] = element;
 
-    ++intOutSize;
+    ++inOutSize;
+
+    return true;
 }
 
 // Task 5
 /**
  * Inserts an element at a specified position in a dynamically allocated array.
- * Returns true on successful insertion or false if the position is invalid.
+ * Returns true on successful insertion or false if the position is invalid or
+ * a resize of the array was unsuccessfull.
  *
  * @param arr Reference to the array pointer.
  * @param inOutSize Reference to the size of the array.
@@ -205,20 +217,24 @@ void appendElement(int*& arr, int& intOutSize, int& inOutLength,  int element) {
  * @return bool True if insertion is successful, false otherwise.
  */
 bool push(int*& arr, int& inOutSize, int& inOutLength ,int element, int index) {
-    if (index < 0 || index >= inOutLength) {
+    if (index < 0 || index >= inOutLength + 1 || index > inOutSize) {
         return false; 
     }
 
     if(inOutSize + 1 > inOutLength){
-        int* temp = createArray(inOutSize + 1);
+        
+        int newLength = inOutSize * 2;
+        int* temp = createArray(newLength);
+        if(temp == nullptr)
+            return false;
 
         // Copy elements before the index.
         copyArray(arr, temp, index);
 
-        temp[index] = element; // Insert the new element.
-
         // Copy elements after the index.
         copyArray(arr + index - 1, temp + index, inOutSize - index + 1);
+
+        temp[index] = element; // Insert the new element.
 
         deleteArray(arr);
 
@@ -226,8 +242,11 @@ bool push(int*& arr, int& inOutSize, int& inOutLength ,int element, int index) {
         ++ inOutLength;
     }
     else{
-        copyArray(arr + index, arr + index + 1, inOutSize - index + 1);
-        arr[index] = element;
+
+        // Copy elements after the index.
+        copyArray(arr + index , arr + index + 1, inOutSize - index + 1);
+
+        arr[index] = element; // Insert the new element.
 
     }
 
@@ -299,14 +318,16 @@ void removeDuplicates(int* arr, int& inOutSize) {
  * @param subarr Pointer to the subarray.
  * @param subsize The size of the subarray.
  */
-void insertSubArray(int*& arr, int& inOutSize, int& inOutLength, int position, int* subarr, int subsize) {
-    if (position < 0 || position > inOutSize) return;
+bool insertSubArray(int*& arr, int& inOutSize, int& inOutLength, int position, int* subarr, int subsize) {
+    if (position < 0 || position > inOutSize + 1) return false;
 
     // Resize the array if the new size exceeds the current length
     if (inOutSize + subsize > inOutLength) {
         int newLength = inOutSize + subsize;
         int* temp = createArray(newLength);
 
+        if(temp == nullptr)
+            return false;
         // Copy elements before the position
         copyArray(arr, temp, position);
 
@@ -324,6 +345,8 @@ void insertSubArray(int*& arr, int& inOutSize, int& inOutLength, int position, i
     // Copy subarray
     copyArray(subarr, arr + position, subsize);
     inOutSize += subsize; // Update the size
+
+    return true;
 }
 
 // Task 8
@@ -336,7 +359,7 @@ void insertSubArray(int*& arr, int& inOutSize, int& inOutLength, int position, i
  * @param newSize Reference to the size of the new array formed.
  * @return Pointer to the new array containing only positive numbers.
  */
-int* extractPositiveNumbers(int** matrix, int rows, int cols, int& newSize) {
+int* extractPositiveNumbers(const int* const* matrix, int rows, int cols, int& newSize) {
     int count = 0;
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
@@ -344,7 +367,10 @@ int* extractPositiveNumbers(int** matrix, int rows, int cols, int& newSize) {
         }
     }
 
-    int* result = new int[count];
+    int* result = new (std::nothrow) int[count];
+    if(result == nullptr)
+        return nullptr;
+
     newSize = 0;
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
@@ -366,11 +392,12 @@ int* extractPositiveNumbers(int** matrix, int rows, int cols, int& newSize) {
  * @return Pointer to the target element if found, otherwise nullptr.
  */
 int* binarySearch(int* arr, int size, int target) {
-    int left = 0, right = size - 1;
+    int* left = arr;
+    int* right = arr + size - 1;
     while (left <= right) {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] == target) return &arr[mid];
-        else if (arr[mid] < target) left = mid + 1;
+        int* mid = left + (right - left) / 2;
+        if (*mid == target) return mid;
+        else if (*mid < target) left = mid + 1;
         else right = mid - 1;
     }
     return nullptr;
@@ -383,45 +410,61 @@ int main(){
     int arraySize = 0;
 
     int* array = createArray(arrayLength);
+    if(array == nullptr)
+        return 1;
     arraySize = arrayLength;
 
     int** matrix = createMatrix(MATRIX_ROWS, MATRIX_COLS);
-
+    if(matrix == nullptr)
+    {
+        deleteArray(array);
+        return 1;
+    }
     fillArrayWithRandomNumbers(array, arraySize, -128, 127);
     printArray(array, arraySize, arrayLength);
     cout << endl;
 
     const int* minElement = findMinElement(array, arraySize);
-    cout << "minElement " << minElement << " " << *minElement << endl;
+    if(minElement != nullptr)
+        cout << "minElement " << minElement << " " << *minElement << endl;
     cout << endl;
 
 
-    appendElement(array, arraySize, arrayLength, 259);
-    std::cout << "295 is appended in array" << endl;
+    if(appendElement(array, arraySize, arrayLength, 259))
+        cout << "295 is appended in array" << endl;
+    else
+        cout << "Error: Could not allocate memory." << endl;
     printArray(array, arraySize, arrayLength);
     cout << endl;
 
-    //Nor Working
-    push(array, arraySize, arrayLength, 9, 2);
-    std::cout << "9 is add on index 2 in array" << endl;
-    std::cout <<"number on second index: " << array[2] << endl;
+    if(push(array, arraySize, arrayLength, 9, 2))
+        cout << "9 is add on index 2 in array" << endl;
+    else
+        cout << "Error: Could not allocate memory." << endl;
+    cout <<"number on second index: " << array[2] << endl;
     printArray(array, arraySize, arrayLength);
     cout << endl;
 
 
     pop(array, arraySize, 2);
-    std::cout << "pop second number on second index in array" << endl;
+    cout << "pop second number on second index in array" << endl;
     printArray(array, arraySize, arrayLength);
     cout << endl;
 
 
     int* element = searchElement(array, arraySize, 259);
-    cout << "searched element " << element << " " << *element;
+    if(element != nullptr)
+        cout << "searched element " << element << " " << *element;
+    else
+        cout << "Error: Could not find element." << endl;
     cout << endl;
 
     // Add few more numbers 
-    appendElement(array, arraySize, arrayLength, 14);
-    appendElement(array, arraySize, arrayLength, 259);
+    if( !appendElement(array, arraySize, arrayLength, 14) ||
+        !appendElement(array, arraySize, arrayLength, 259) )
+    {
+        cout << "Error: Could not allocate memory." << endl;
+    }
 
     removeDuplicates(array, arraySize);
     printArray(array, arraySize, arrayLength);
@@ -429,17 +472,30 @@ int main(){
 
 
     int* searchedElement = binarySearch(array, arraySize, 259);
-    std::cout << "Binary search:  "<<*searchedElement << endl;
+    if(searchedElement != nullptr)
+        cout << "Binary search:  "<<*searchedElement << endl;
+        else
+    cout << "Error: Could not find element." << endl;
     cout << endl;
 
     int subArrayLength = 5;
     int* subArray = createArray(subArrayLength);
+    if(subArray == nullptr)
+    {
+        cout << "Error: Could not allocate memory." << endl;
+        deleteArray(array);
+        deleteMatrix(matrix, MATRIX_ROWS);
+        return 1;
+    }
     cout << "sub array to add: \n";
     fillArrayWithRandomNumbers(subArray, subArrayLength, -1, 1);
     printArray(subArray, subArrayLength, subArrayLength);
 
-    insertSubArray(array, arraySize, arrayLength, 3, subArray, subArrayLength);
-    cout << "after adding sub array: \n";
+    if(insertSubArray(array, arraySize, arrayLength, 3, subArray, subArrayLength))
+        cout << "after adding sub array: \n";
+        else
+    cout << "Error: Could not allocate memory." << endl;
+
     printArray(array, arraySize, arrayLength);
     cout << endl;
 
@@ -447,13 +503,14 @@ int main(){
     printMatrix(matrix, MATRIX_ROWS, MATRIX_COLS);
     int lengthOfExtractArray = 0;
     int* extractPositiveNums = extractPositiveNumbers(matrix, MATRIX_ROWS, MATRIX_COLS, lengthOfExtractArray);
+    if(extractPositiveNums != nullptr)
+        printArray(extractPositiveNums , lengthOfExtractArray, lengthOfExtractArray);
+    else
+        cout << "Error: Could not allocate memory." << endl;
 
-    printArray(extractPositiveNums , lengthOfExtractArray, lengthOfExtractArray);
-
-    delete minElement;
-    delete element;
-    delete searchedElement;
     deleteArray(array);
     deleteArray(extractPositiveNums);
     deleteMatrix(matrix, MATRIX_ROWS);
+
+    return 0;
 }

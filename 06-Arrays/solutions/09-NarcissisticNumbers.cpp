@@ -7,7 +7,7 @@ bool isNarcissistic(int number)
     int numDigits = log10(number) + 1;
     int sum = 0;
 
-    while (number > 0)
+    while (number > 0 && sum < originalNumber)
     {
         int digit = number % 10;
         sum += pow(digit, numDigits);
@@ -17,7 +17,7 @@ bool isNarcissistic(int number)
     return sum == originalNumber;
 }
 
-void findNarcissisticNumbers(int arr[], const int &size)
+void findNarcissisticNumbers(const int arr[], const int size)
 {
     for (int i = 0; i < size; ++i)
     {

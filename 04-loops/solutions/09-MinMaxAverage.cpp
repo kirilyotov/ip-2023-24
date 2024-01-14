@@ -1,6 +1,5 @@
 #include <iostream>
 #include <limits>
-#include <sstream>
 
 int main()
 {
@@ -11,11 +10,12 @@ int main()
     int count = 0;
     int number;
     char separator;
+    double average = 0;
 
     while (std::cin >> number >> separator)
     {
-        sum += number;
         count++;
+        average = average + (number - average) / count;
         if (number < min)
             min = number;
         if (number > max)
@@ -24,8 +24,6 @@ int main()
         if (separator == ';')
             break;
     }
-
-    double average = (double)(sum) / count;
 
     std::cout << "Min: " << min << std::endl;
     std::cout << "Max: " << max << std::endl;

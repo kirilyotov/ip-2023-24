@@ -1,6 +1,6 @@
 #include <iostream>
 
-bool hasZeroSumSubsequence(const int arr[], const int &size)
+bool hasZeroSumSubsequence(const int arr[], const int size)
 {
     for (int i = 0; i < size; ++i)
     {
@@ -26,10 +26,11 @@ int main()
     if (hasZeroSumSubsequence(array, size))
     {
         std::cout << "Yes" << std::endl;
-        return 0;
     }
-
-    std::cout << "No" << std::endl;
-
+    else
+    {
+        std::cout << "No" << std::endl;
+    }
+    
     return 0;
 }

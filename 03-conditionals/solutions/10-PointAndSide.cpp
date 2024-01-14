@@ -16,13 +16,13 @@ int main() {
     float fabsX = fabs(x);
     float fabsY = fabs(y);    
 
-    bool isOnАbscissa = fabs(fabsX - half_side) < EPS;
-    bool isOnOrdinate = fabs(fabsY - half_side) < EPS;
+    bool isOnXSquareSide = fabs(fabsX - half_side) < EPS;
+    bool isOnYSquareSide = fabs(fabsY - half_side) < EPS;
 
     bool isXCoordInRange = fabsX < half_side + EPS;
     bool isYCoordInRange = fabsY < half_side + EPS;
-
-    if (isOnАbscissa && isYCoordInRange  || isOnOrdinate && isXCoordInRange) {
+    
+    if (isOnXSquareSide && isYCoordInRange || isOnYSquareSide && isXCoordInRange) {
         cout << "Point A(" << x << ", " << y << ") is ON the rectangle" << endl;
     }
     else if (fabsX < half_side && fabsY < half_side) {
