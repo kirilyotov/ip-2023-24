@@ -37,3 +37,7 @@
 - [08-Подготовка за първо контролно](https://github.com/kirilyotov/ip-2023-24/tree/master/08-exam_prep)<br>
 - [09-Матрици](https://github.com/kirilyotov/ip-2023-24/tree/master/09-matrices)<br>
 - [10-Динамични масиви](https://github.com/kirilyotov/ip-2023-24/tree/master/10-dynamic-memory)<br>
+- [11-Низове](https://github.com/kirilyotov/ip-2023-24/tree/master/12-recursion)<br>
+- [12-Рекурсии](https://github.com/kirilyotov/ip-2023-24/tree/master/12-recursion)<br>
+- [13-backtracking](https://github.com/kirilyotov/ip-2023-24/tree/master/13-backtracking)<br>
+- [14-Функции от по-висок ред](https://github.com/kirilyotov/ip-2023-24/tree/master/14-HigherOrderFunctions)<br>
