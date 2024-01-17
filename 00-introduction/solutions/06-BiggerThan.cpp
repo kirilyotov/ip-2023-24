@@ -9,8 +9,10 @@ int main()
 
 	if (x > y)
 		std::cout << "x is bigger than y";
-	else
+	else if (y > x)
 		std::cout << "y is bigger than x";
+	else
+		std::cout << "x is equal to y";
 
 	return 0;
 }

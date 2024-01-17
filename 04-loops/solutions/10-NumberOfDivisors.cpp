@@ -4,8 +4,8 @@ int main()
 {
     int N;
     std::cin >> N;
-    int count = 0;
-    for (int i = 1; i <= N; ++i)
+    int count = 1;
+    for (int i = 2; i <= N; ++i)
     {
         if (N % i == 0)
         {

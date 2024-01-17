@@ -1,7 +1,7 @@
 #include <iostream>
 
-int countTrailingZeros(int n) {
-    int count = 0;
+short countTrailingZeros(int n) {
+    short count = 0;
     while ((n & 1) == 0 && n != 0) {
         count++;
         n >>= 1;

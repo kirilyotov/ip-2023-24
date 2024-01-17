@@ -1,6 +1,6 @@
 #include <iostream>
 
-int swapBits(int n, int i, int j) {
+int swapBits(int n, short i, short j) {
     if (((n >> i) & 1) != ((n >> j) & 1)) {
         n ^= (1 << i) | (1 << j);
     }
@@ -8,7 +8,8 @@ int swapBits(int n, int i, int j) {
 }
 
 int main() {
-    int n, i, j;
+    int n;
+    short i, j;
     std::cin >> n >> i >> j;
     
     std::cout << swapBits(n, i, j) << std::endl;

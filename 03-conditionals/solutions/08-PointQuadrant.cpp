@@ -7,16 +7,16 @@ using std::endl;
 int main() {
     const float EPS = 0.00001; 
 
-    int x, y;
+    float x, y;
     cout << "Enter the coordinates of the point (x y): ";
     cin >> x >> y;
 
-    bool isOnАbscissa = fabs(x) < EPS;
-    bool isOnOrdinate = fabs(y) < EPS;
+    bool isOnOrdinate = fabs(x) < EPS;
+    bool isOnAbscissa = fabs(y) < EPS;
 
-    if (isOnАbscissa && isOnOrdinate) {
+    if (isOnAbscissa && isOnOrdinate) {
         cout << "The point is at the origin." << endl;
-    } else if (isOnАbscissa) {
+    } else if (isOnAbscissa) {
         cout << "The point is on the X axis." << endl;
     } else if (isOnOrdinate) {
         cout << "The point is on the Y axis." << endl;

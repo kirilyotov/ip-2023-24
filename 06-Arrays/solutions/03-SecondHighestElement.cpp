@@ -6,7 +6,6 @@ void readArray(int arr[], const int size)
     {
         std::cin >> arr[i];
     }
-    std::cout << std::endl;
 }
 
 int getSecondLargestElement(const int arr[], const int size)
@@ -26,15 +25,15 @@ int getSecondLargestElement(const int arr[], const int size)
             secondMax = arr[i];
         }
     }
-    std::cout << secondMax << std::endl;
     return secondMax;
 }
 
 int main()
 {
     const int SIZE = 128;
-    int arr[SIZE] = {0};
-    getSecondLargestElement(arr, SIZE);
+    int arr[SIZE] = {0,};
+    readArray(arr, SIZE);
+    std::cout << getSecondLargestElement(arr, SIZE);
 
     return 0;
 }

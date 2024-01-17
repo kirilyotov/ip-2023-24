@@ -1,7 +1,7 @@
 #include <iostream>
 
-int countBits(int n) {
-    int count = 0;
+short countBits(int n) {
+    short count = 0;
     while (n) {
         count += n & 1;
         n >>= 1;

@@ -1,6 +1,6 @@
 #include <iostream>
 
-bool isSawtooth(const int arr[], const int &size)
+bool isSawtooth(const int arr[], const int size)
 {
     if (size < 3)
     {

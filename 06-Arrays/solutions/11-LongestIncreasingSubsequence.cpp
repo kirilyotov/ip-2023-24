@@ -1,10 +1,10 @@
 #include <iostream>
-using namespace std;
 
-void longestIncreasingSubsequence(const int arr[], const int &size, int &startIndex, int &max)
+void longestIncreasingSubsequence(const int arr[], const int size, int &startIndex, int &max)
 {
-    int length = 1;
-    for (int i = 0; i < size; ++i)
+    int length = size > 0 ? 1 : 0;
+    max = length;
+    for (int i = 0; i < size - 1; ++i)
     {
         if (arr[i] < arr[i + 1])
         {
